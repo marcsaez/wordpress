@@ -1,3 +1,4 @@
+#----------RDS----------
 resource "aws_db_instance" "bbdd" {
     identifier = "msaezbbdd"
     db_name = "wordpress"
