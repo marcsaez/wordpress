@@ -22,6 +22,7 @@ resource "aws_db_instance" "bbdd" {
 
 #---------------EC2---------------
 resource "aws_instance" "wp" {
+    subnet_id     = var.ec2_subnet
     ami           = data.aws_ami.al2.id 
     instance_type = var.ec2_type
     key_name      = "${var.name}aws_key"
