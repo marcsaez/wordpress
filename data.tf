@@ -1,3 +1,4 @@
+# AMAZON LINUX 2 AMI
 data "aws_ami" "al2" {
   most_recent = true
   owners      = ["amazon"] # Amazon
