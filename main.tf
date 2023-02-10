@@ -22,25 +22,15 @@ resource "aws_db_instance" "bbdd" {
 
 #---------------EC2---------------
 resource "aws_instance" "wp" {
-    subnet_id     = var.ec2_subnet
-    ami           = data.aws_ami.al2.id 
+    ami           = data.aws_ami.ubuntu.id 
     instance_type = var.ec2_type
-    key_name      = "${var.name}aws_key"
-    vpc_security_group_ids = [aws_security_group.wp.id,aws_security_group.bbdd_ec2_conncetion.id]
-    user_data_base64 = base64encode(data.template_file.cloud-init-config.rendered)
-    provisioner "remote-exec" {
-      inline = [
-      "echo 'Waiting for cloud-init to complete...'",
-      "cloud-init status --wait > /dev/null",
-      "echo 'Completed cloud-init!'",
-      "echo 'Wordpress ready!'",
-      ]
-    } 
+    key_name      = aws_key_pair.marc.key_name
+    vpc_security_group_ids = [aws_security_group.wp.id,aws_security_group.bbdd_ec2_conncetion.id] 
     tags = {
       "Name" = "${var.name}wp"
     }
     depends_on = [
-      aws_db_instance.bbdd
+      aws_db_instance.bbdd,aws_key_pair.marc
     ]
 }
 
