@@ -1,5 +1,11 @@
+#cloud-config
+package_upgrade: true
+packages:
+  - mysql-client
+
+
 runcmd:
-  - sudo apt update -y
-  - 
-  - 
-  - 
+  - sudo 
+  - sudo mysql -u root -e "CREATE DATABASE wordpress;"
+  - sudo mysql -u root -e "CREATE USER 'marc'@'localhost' IDENTIFIED BY 'TU_CONTRASEÑA_DE_MARC';"
+  - sudo mysql -u root -e "GRANT ALL PRIVILEGES ON wordpress.* TO 'marc'@'localhost';"

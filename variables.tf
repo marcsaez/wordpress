@@ -14,6 +14,9 @@ variable "db_admin" { default = "admin" }
 variable "db_pass" { default = "password" }
 variable "db_type" { default = "db.t2.micro" }
 variable "db_store" { default = 20 }
+# WP
+variable "wp_user" { default = "msaez" }
+variable "wp_pass" { default = "password!" }
 
 # EC2
 variable "ec2_type" { default = "t2.micro"}

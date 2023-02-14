@@ -19,6 +19,10 @@ data "aws_ami" "ubuntu" {
 data "template_file" "cloud-init-config" {
   template = file("./config/cloud-init.yaml")
   vars = {
-    docker_version = var.docker_version
+    db_name  = var.db_name
+    db_admin = var.db_admin
+    db_pass  = var.db_pass
+    wp_user  = var.wp_user
+    wp_pass  = var.wp_pass
   }
 }
