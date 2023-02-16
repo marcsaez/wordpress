@@ -19,7 +19,7 @@ data "aws_ami" "ubuntu" {
 data "template_file" "cloud-init-config" {
   template = file("./config/cloud-init.yaml")
   vars = {
-    db_endpoint = var.db_endpoint
+    db_endpoint = "${split(":", aws_db_instance.bbdd.endpoint)[0]}"
     db_name     = var.db_name
     db_admin    = var.db_admin
     db_pass     = var.db_pass

@@ -3,13 +3,6 @@ output "IP_EC2" {
 }
 
 output "endpoint_BBDD" {
-  value= aws_db_instance.bbdd.endpoint
+  value= aws_db_instance.bbdd.endpoint #element(split(":",aws_db_instance.bbdd.endpoint),0)
 }
 
-output "acces" {
-  value= var.access_key
-}
-
-output "secret" {
-  value= var.secret_key
-}

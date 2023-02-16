@@ -9,7 +9,6 @@ variable "ssh_key"     { default = "SSH PUBLIC KEY NECESSARY" }
 variable "name"        { default = "msaez-" }
 
 # RDS
-variable "db_endpoint" { default = element(split(":", var.endpoint_BBDD), 0)}
 variable "db_name"     { default = "wordpress" }
 variable "db_admin"    { default = "admin" }
 variable "db_pass"     { default = "password" }
