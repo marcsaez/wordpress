@@ -1,12 +1,12 @@
 #---------------SSH PUBLIC KEY---------------
-resource "aws_key_pair" "marc" {
-  key_name   = "${var.name}aws_key"
+resource "aws_key_pair" "default" {
+  key_name   = "${var.name}-aws_key"
   public_key = var.ssh_key
 }
 
 #---------------RDS---------------
 resource "aws_db_instance" "bbdd" {
-    identifier = "${var.name}bbdd"
+    identifier = "${var.name}-bbdd"
     db_name = var.db_name
     engine = "mysql"
     username = var.db_admin
@@ -15,29 +15,28 @@ resource "aws_db_instance" "bbdd" {
     allocated_storage = var.db_store
     vpc_security_group_ids = [aws_security_group.bbdd_ec2_conncetion.id]
     skip_final_snapshot = true
-    tags = {
-      "Name" = "${var.name}mysql"
-    }
+    
 }
 
 #---------------EC2---------------
 resource "aws_instance" "wp" {
     ami           = data.aws_ami.ubuntu.id 
     instance_type = var.ec2_type
-    key_name      = aws_key_pair.marc.key_name
+    key_name      = aws_key_pair.default.key_name
     vpc_security_group_ids = [aws_security_group.wp.id,aws_security_group.bbdd_ec2_conncetion.id] 
+    associate_public_ip_address = true
     user_data_base64 = base64encode(data.template_file.cloud-init-config.rendered)
     tags = {
-      "Name" = "${var.name}wp"
+      "Name" = "${var.name}-wp"
     }
     depends_on = [
-      aws_db_instance.bbdd,aws_key_pair.marc
+      aws_db_instance.bbdd,aws_key_pair.default
     ]
 }
 
 #---------------SG EC2---------------
 resource "aws_security_group" "wp" {
-  name = "${var.name}sg-wp"
+  name = "${var.name}-sg-wp"
   egress {
       cidr_blocks      = [ "0.0.0.0/0" ]
       description      = ""
@@ -104,3 +103,5 @@ resource "aws_security_group" "bbdd_ec2_conncetion" {
    }
    ]
 }
+
+
