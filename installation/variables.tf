@@ -5,7 +5,7 @@ variable "password" {
   default = "password!"
 }
 variable "db"     { default = "wordpress" }
-
+variable "db_pass"     { default = "password" }
 locals {
   php = <<-EOF
     <?php

@@ -10,7 +10,9 @@ resource "null_resource" "bbdd" {
   }
   provisioner "remote-exec" {
     inline = [
-      "sudo mysql --user=admin --password='password' -e 'CREATE'"
+      "sudo mysql --user=admin --password=\"${var.db_pass}\" -e \"CREATE USER 'msaez' IDENTIFIED BY 'password!';\"",
+      "sudo mysql --user=admin --password=\"${var.db_pass}\" -e \"GRANT ALL PRIVILEGES ON wordpress.* TO msaez;\"",
+      "sudo mysql --user=admin --password=\"${var.db_pass}\" -e \"FLUSH PRIVILEGES;\""
     ]
   }
 }
@@ -56,6 +58,8 @@ resource "null_resource" "wp-installation" {
       "sudo cp /home/ubuntu/wp-config.php /srv/www/wordpress/wp-config.php"
     ]
   }
-
+  depends_on = [
+    null_resource.bbdd
+  ]
 
 }
