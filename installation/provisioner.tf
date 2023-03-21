@@ -10,9 +10,9 @@ resource "null_resource" "bbdd" {
   }
   provisioner "remote-exec" {
     inline = [
-      "sudo mysql --user=admin --password=\"${var.db_pass}\" -e \"CREATE USER 'msaez' IDENTIFIED BY 'password!';\"",
-      "sudo mysql --user=admin --password=\"${var.db_pass}\" -e \"GRANT ALL PRIVILEGES ON wordpress.* TO msaez;\"",
-      "sudo mysql --user=admin --password=\"${var.db_pass}\" -e \"FLUSH PRIVILEGES;\""
+      "sudo mysql -h ${data.terraform_remote_state.main.outputs.endpoint_BBDD} --user=admin --password=\"${var.db_pass}\" -e \"CREATE USER 'msaez' IDENTIFIED BY '${var.password}';\"",
+      "sudo mysql -h ${data.terraform_remote_state.main.outputs.endpoint_BBDD} --user=admin --password=\"${var.db_pass}\" -e \"GRANT ALL PRIVILEGES ON wordpress.* TO msaez;\"",
+      "sudo mysql -h ${data.terraform_remote_state.main.outputs.endpoint_BBDD} --user=admin --password=\"${var.db_pass}\" -e \"FLUSH PRIVILEGES;\""
     ]
   }
 }

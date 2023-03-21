@@ -1,4 +1,4 @@
-    <?php
+<?php
 /**
  * The base configuration for WordPress
  *
@@ -29,7 +29,7 @@ define( 'DB_USER', 'msaez' );
 define( 'DB_PASSWORD', 'password!' );
 
 /** Database hostname */
-define( 'DB_HOST', 'msaez-bbdd.ceizi1q6e5mi.us-east-1.rds.amazonaws.com' );
+define( 'DB_HOST', 'msaez-bbdd.cabdkfzrntlo.us-east-1.rds.amazonaws.com' );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );

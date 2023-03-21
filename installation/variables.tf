@@ -1,14 +1,13 @@
 # WP
 variable "user"     { default = "msaez" }
 variable "password" {
-  sensitive = true
-  default = "password!"
+  
 }
 variable "db"     { default = "wordpress" }
 variable "db_pass"     { default = "password" }
 locals {
   php = <<-EOF
-    <?php
+<?php
 /**
  * The base configuration for WordPress
  *
