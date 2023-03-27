@@ -22,6 +22,7 @@ resource "null_resource" "bbdd" {
 resource "local_file" "wpconfig" {
   content  = local.php
   filename = "${path.module}/wp-config/wp-config.php"
+
 }
 
 resource "null_resource" "wp-installation" {
